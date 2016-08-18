@@ -1,0 +1,2 @@
+pod 'Mantle'
+pod 'ReactiveCocoa', '~> 2.5'

@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "poiAttrTagList": [
+        "亲子酒店"
+      ],
+      "scoreIntro": "好:4.3分",
+      "frontImg": "http://p1.meituan.net/165.165/hotel/8d493464d522247b7fe94c2c9a19b732465367.jpg",
+      "avgScore": 4.3,
+      "poiLastOrderTime": "17分钟前有人预订",
+      "lowestPrice": 227,
+      "markNumbers": 1567,
+      "lng": 116.42252,
+      "lat": 39.899286,
+      "poiSaleAndSpanTag": "1000+人消费",
+      "posdescr": "崇文门，国瑞购物中心附近",
+      "name": "北京西瓜时尚宾馆"
+    }
+  ]
+}
