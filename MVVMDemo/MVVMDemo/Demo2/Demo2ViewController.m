@@ -25,8 +25,8 @@
 
     RACChannelTerminal *passwordTerminal = [_passwordTextField rac_newTextChannel];
     RACChannelTerminal *viewModelPasswordTerminal = RACChannelTo(_viewModel, password);
-    [passwordTerminal subscribe:viewModelPasswordTerminal];
     [viewModelPasswordTerminal subscribe:passwordTerminal];
+    [passwordTerminal subscribe:viewModelPasswordTerminal];
 
     RAC(_outputLabel, text) = _viewModel.outputSignal;
     _clearButton.rac_command = _viewModel.clearCommand;

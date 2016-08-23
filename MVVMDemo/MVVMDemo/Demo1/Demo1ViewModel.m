@@ -27,9 +27,9 @@
     if (self = [super init]) {
         _dataSignal = [[self.loadDataCommand.executionSignals flattenMap:^RACStream *(RACSignal *dataSignal) {
             LocationManager *locationManager = [LocationManager defaultLocationManager];
-            return [dataSignal map:^id (NSArray *dataArray) {
-                NSArray *scenicArray = dataArray[0];
-                NSArray *hotelArray = dataArray[1];
+            return [dataSignal map:^id (RACTuple *data) {
+                NSArray *scenicArray = data.first;
+                NSArray *hotelArray = data.second;
                 return [[[[scenicArray rac_sequence] map:^id (Scenic *scenic) {
                     ScenicCellViewModel *viewModel = [[ScenicCellViewModel alloc] initWithScenic:scenic];
                     viewModel.currentCityID = locationManager.lastLoaionCityID;

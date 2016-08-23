@@ -8,6 +8,7 @@
 		- [MVVM解决了什么问题？](#mvvm解决了什么问题)
 		- [对比MVC与MVVM](#对比mvc与mvvm)
 		- [MVVM实现代码复用](#mvvm实现代码复用)
+		- [MVVM中的绑定](#mvvm中的绑定)
 	- [MVVM编程实战](#mvvm编程实战)
 		- [Demo 1：单纯UI展示](#demo-1单纯ui展示)
 		- [Demo 2：表单页面](#demo-2表单页面)
@@ -30,7 +31,7 @@
 
 - 2009年毕业于北京航空航天大学
 - 2009~2014 就职于IBM CDL
-- 2014年加入美团-大众点评，职位是iOS高级技术专家
+- 2014年加入美团-大众点评，iOS高级技术专家
 - 翻译书籍《Swift编程实战 iOS应用开发实例及完整解决方案》
 - 2016年3月在QCon上分享了《MVVM与FRP编程实战》主题演讲
 - 有多年的iOS开发经验，长期关注iOS前沿技术
@@ -49,9 +50,9 @@
 
 ## MVVM基础知识
 
-MVVM是一种软件建构模式<sup>1</sup>。最早由微软架构师Ken Cooper和Ted Peters开发。尽管微软大力推广的WPF和SilverLight并没有得到市场的充分认可，但MVVM架构的模式却非常有可取之处。
+MVVM是一种软件架构模式[^1]。最早由微软架构师Ken Cooper和Ted Peters开发。尽管微软大力推广的WPF和SilverLight并没有得到市场的充分认可，但MVVM架构的模式却非常有可取之处。
 
-> 1\. 摘自维基百科：https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel
+> [^1]: 摘自维基百科：https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel
 >
 
 美团是从2015年春天开始初步尝试了MVVM模式。初期考虑是看中了MVVM模式容易进行单元测试的特点，因为ViewModel本质是一个普通OC对象，对它进行测试可以脱离UI环境，也不需要复杂的mock开发。
@@ -60,9 +61,9 @@ MVVM是一种软件建构模式<sup>1</sup>。最早由微软架构师Ken Cooper
 
 事实上，在我工作的团队中，更加渴望实现代码的复用。我们团队负责美团的酒店旅游相关的业务，虽然业务上并不相同，但存在大量的相似之处：比如，不管是酒店住宿还是旅游出行，通常都需要预约。因此，我们实施MVVM的重点，逐渐从单元测试转移到了代码复用上。
 
-在iOS领域实践MVVM模式，通常需要使用RAC(ReactiveCocoa)去实施FRP(Functional Reactive Progamming<sup>2</sup>)。这是一个伪命题，本质上讲实现MVVM并不需要使用RAC，但脱离了RAC或与之类似的框架，再实现MVVM的代码将变得非常丑陋。为什么说是伪命题呢？因为ReactiveCocoa和FRP和传统的OOP（面向对象编程）思路并非一脉相承。熟练的掌握RAC和FRP有很高的学习曲线，如果在团队和项目中实践MVVM，需要对相关的技术优势和困难有比较清醒的认识。本教程就是希望通过一些简化的场景，帮助大家降低使用MVVM的门槛，真正让MVVM为项目和团队带来价值。
+在iOS领域实践MVVM模式，通常需要使用RAC(ReactiveCocoa)去实施FRP(Functional Reactive Progamming[^2])。这是一个伪命题，本质上讲实现MVVM并不需要使用RAC，但脱离了RAC或与之类似的框架，再实现MVVM的代码将变得非常丑陋。为什么说是伪命题呢？因为ReactiveCocoa和FRP和传统的OOP（面向对象编程）思路并非一脉相承。熟练的掌握RAC和FRP有很高的学习曲线，如果在团队和项目中实践MVVM，需要对相关的技术优势和困难有比较清醒的认识。本教程就是希望通过一些简化的场景，帮助大家降低使用MVVM的门槛，真正让MVVM为项目和团队带来价值。
 
-> 2\. https://en.wikipedia.org/wiki/Functional_reactive_programming
+> [^2]:  https://en.wikipedia.org/wiki/Functional_reactive_programming
 >
 
 ### MVVM解决了什么问题？
@@ -131,15 +132,19 @@ MVVM是一种软件建构模式<sup>1</sup>。最早由微软架构师Ken Cooper
 
 相信大家一定对这块的代码非常感兴趣，下一部分将介绍本例的实现代码。
 
-## MVVM编程实战
+### MVVM中的绑定
 
-在MVVM模式中，绑定是非常重要基础，绑定主要包含以下几种形式：
+在MVVM模式中，绑定非常重要，主要包含以下几种形式：
 
 - 单向数据绑定
 - 集合数据绑定
 - 双向数据绑定
 - 执行过程绑定
 - 错误处理
+
+接下来我们会通过具体的Demo体现这些绑定的用法。
+
+## MVVM编程实战
 
 下面的几个Demo会体现MVVM模式在代码复用、单元测试方面体现出来的优势，也会分别体现出上面列举的这些绑定场景。
 
@@ -219,7 +224,6 @@ Demo代码部分模拟了图4所展示的内容，在能够介绍清楚原理的
 @property (nonatomic) double lowestPrice;
 @property (nonatomic) double lng;
 @property (nonatomic) double lat;
-@property (nonatomic) NSString *pictureTagURL;
 @property (nonatomic) NSInteger cityID;
 @property (nonatomic) NSString *cityName;
 @property (nonatomic) NSString *areaName;
@@ -254,6 +258,7 @@ Demo代码部分模拟了图4所展示的内容，在能够介绍清楚原理的
 按照前面介绍的思路，景点的ViewModel应该继承POICellViewModel，根据业务逻辑（需求），将景点的数据加工并映射的ViewMode的**UI属性**上。
 
 这里实现了一些略微复杂的需求，包括：
+
 1. 将价格信息映射为富文本（AttributeText）
 2. 同城景点在右脚标显示区名，其它城市的景点显示城市名称。
 3. 根据ImageURL获取得到具体的Image数据
@@ -500,9 +505,9 @@ _errorSignal = self.loadDataCommand.errors;
 
 _dataSignal = [[self.loadDataCommand.executionSignals flattenMap:^RACStream *(RACSignal *dataSignal) {
             LocationManager *locationManager = [LocationManager defaultLocationManager];
-            return [dataSignal map:^id (NSArray *dataArray) {
-                NSArray *scenicArray = dataArray[0];
-                NSArray *hotelArray = dataArray[1];
+            return [dataSignal map:^id (RACTuple *data) {
+                NSArray *scenicArray = data.first;
+                NSArray *hotelArray = data.second;
                 return [[[[scenicArray rac_sequence] map:^id (Scenic *scenic) {
                     ScenicCellViewModel *viewModel = [[ScenicCellViewModel alloc] initWithScenic:scenic];
                     viewModel.currentCityID = locationManager.lastLoaionCityID;
@@ -701,7 +706,7 @@ RAC提供了`RACChannelTerminal`，可以很好的支持双向绑定的需求。
         }];
 
         _verifyPhoneSignal = [RACObserve(self, phone) map:^id (NSString *phone) {
-            NSString *phoneRegexp = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
+            NSString *phoneRegexp = @"^1(3[0-9]|5[0-35-9]|8[0-25-9])\\d{8}$";
             NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegexp];
             return @((BOOL)[regextestmobile evaluateWithObject:phone]);
         }];
@@ -745,13 +750,14 @@ ViewModel的实现逻辑简单又清晰，下面在ViewController中ViewModel进
     [super viewDidLoad];
     _viewModel = [[Demo2ViewModel alloc] init];
     RACChannelTerminal *phoneTerminal = [_phoneTextField rac_newTextChannel];
-    [phoneTerminal subscribe:_viewModel.phoneTerminal ];
-    [_viewModel.phoneTerminal subscribe:phoneTerminal]; // ①
+		[_viewModel.phoneTerminal subscribe:phoneTerminal];
+    [phoneTerminal subscribe:_viewModel.phoneTerminal]; // ①
 
     RACChannelTerminal *passwordTerminal = [_passwordTextField rac_newTextChannel];
     RACChannelTerminal *viewModelPasswordTerminal = RACChannelTo(_viewModel, password);
-    [passwordTerminal subscribe:viewModelPasswordTerminal];
-    [viewModelPasswordTerminal subscribe:passwordTerminal]; // ②
+    [viewModelPasswordTerminal subscribe:passwordTerminal];
+		[passwordTerminal subscribe:viewModelPasswordTerminal];
+     // ②
 
     RAC(_outputLabel, text) = _viewModel.outputSignal;
     _clearButton.rac_command = _viewModel.clearCommand; // 绑定执行过程
@@ -778,7 +784,7 @@ ViewModel的实现逻辑简单又清晰，下面在ViewController中ViewModel进
 ```objc
 RACChannelTerminal* aTerminal = xxxx;
 RACChannelTerminal* bTerminal = xxxx;
-[aTerminal subscribe:bTerminal ];
+[aTerminal subscribe:bTerminal];
 [bTerminal subscribe:aTerminal];
 
 ```
@@ -809,14 +815,22 @@ RACChannelTerminal *viewModelPasswordTerminal = RACChannelTo(_viewModel, passwor
 {
     Demo2ViewModel *viewModel = [[Demo2ViewModel alloc] init];
 
-    [viewModel setValue:@"18612345678" forKey:@"phone"];
+    RACChannel *channel = [[RACChannel alloc] init];
+    [viewModel.phoneTerminal subscribe:channel.leadingTerminal];
+    [channel.leadingTerminal subscribe:viewModel.phoneTerminal];
+
+    [channel.followingTerminal sendNext:@"18612345678"]; // 模拟从文本框输入 18612345678
+
     NSNumber *verifyPhoneResult = [viewModel.verifyPhoneSignal first];
-
     XCTAssertEqualObjects(verifyPhoneResult, @(YES));
-    [viewModel setValue:@"110" forKey:@"phone"];
-    verifyPhoneResult = [viewModel.verifyPhoneSignal first];
 
-    XCTAssertEqualObjects(verifyPhoneResult, @(NO));
+    [viewModel setValue:@"13810001000" forKey:@"phone"]; // 模拟ViewModel更新phone值为13810001000
+
+    XCTAssertEqualObjects([channel.followingTerminal first], @"13810001000"); // 检验文本框内容是否为13810001000
+
+    viewModel.password = @"1234";
+    NSNumber *verifyPasswordResult = [viewModel.verifyPasswordSignal first];
+    XCTAssertEqualObjects(verifyPasswordResult, @(NO)); // 测试密码校验逻辑，少于8位，失败。
 }
 
 - (void)testClearCommand
@@ -831,7 +845,7 @@ RACChannelTerminal *viewModelPasswordTerminal = RACChannelTo(_viewModel, passwor
 
     [viewModel.clearCommand execute:nil];
 
-    XCTAssertEqualObjects([viewModel valueForKey:@"phone"], @"");
+    XCTAssertEqualObjects([viewModel valueForKey:@"phone"], @"186");
     XCTAssertEqualObjects([viewModel valueForKey:@"password"], @"");
 }
 
@@ -841,7 +855,7 @@ RACChannelTerminal *viewModelPasswordTerminal = RACChannelTo(_viewModel, passwor
 
 #### 页面跳转
 
-在iOS开发的过程中，经常会出现点击一个按钮/Cell跳转到另外一个页面的情况。在MVVM模式中，点击按钮/Cell的事件应该和ViewModel中的Command进行绑定，那么问题来了，ViewModel中代码只应该包含数据，而不应该包含任何View/ViewController相关的东西，所以跳转的逻辑需要在ViewController内部完成。于是代码写出来是这个样子：
+在iOS开发的过程中，经常会出现点击一个按钮/Cell跳转到另外一个页面的情况。在MVVM模式中，点击按钮/Cell的事件应该和ViewModel中的Command进行绑定，那么问题来了，ViewModel中代码只应该包含数据，而不应该包含任何View/ViewController相关的东西，所以跳转的逻辑只能在ViewController内部完成。于是代码写出来是这个样子：
 
 ```objc
 	@weakify(self);
@@ -854,7 +868,7 @@ RACChannelTerminal *viewModelPasswordTerminal = RACChannelTo(_viewModel, passwor
 
 事情变得有些尴尬，因为ViewModel的Command里面似乎什么也没干，而真正有价值的事情都在ViewController中，直觉告诉我，这不是一个好现象。
 
-通常情况下，“跳转到哪个目标页面”也应该算作业务逻辑的范畴，因而应该在ViewModel内完成，这样才有助于进行自动化单元测试。不妨让问题的场景更复杂一些，有时候同一个按钮或Cell在被点击时，会根据业务要求跳转到不同的页面。所以ViewModel中应通过信号，将正确的目标页面信息返回给View层，然后由View层完成跳转。
+通常情况下，“跳转到哪个目标页面”也应该算是业务逻辑的范畴，因而应该在ViewModel内完成，这样才有助于进行自动化单元测试。不妨让问题的场景更复杂一些，有时候同一个按钮或Cell在被点击时，会根据业务要求跳转到不同的页面。所以ViewModel中应通过信号，将正确的目标页面信息返回给View层，然后由View层完成跳转。
 
 美团在2015年对外分享过，我们使用URL去描述和区分不同的页面。在跳转的时候并不直接构造目标页面的ViewController，而是通过一个叫`Portal`的组件根据目标URL完成最终的跳转工作。有了`Portal`的帮助，这类跳转问题就迎刃而解了。我们只需要在Command的返回信号中包含目标页面的URL，或者干脆在ViewModel中暴露一个信号，专门用于VC的跳转即可：
 
@@ -902,8 +916,10 @@ RACChannelTerminal *viewModelPasswordTerminal = RACChannelTo(_viewModel, passwor
 
 ReactiveCocoa为Objective-C插上了FRP的翅膀，为在iOS中实现MVVM模式起到了至关重要的作用。因此强烈建议多花些时间和经历去加深对RAC的学习和理解，这里推荐美团技术博客上的几篇文章：
 
+
 - [http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html](http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html)
 
 - [http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-2.html](http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-2.html)
 
 - [http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-3.html](http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html)
+- [http://tech.meituan.com/potential-memory-leak-in-reactivecocoa.html](http://tech.meituan.com/potential-memory-leak-in-reactivecocoa.html)

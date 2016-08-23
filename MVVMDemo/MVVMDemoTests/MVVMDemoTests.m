@@ -31,14 +31,22 @@
 {
     Demo2ViewModel *viewModel = [[Demo2ViewModel alloc] init];
 
-    [viewModel setValue:@"18612345678" forKey:@"phone"];
+    RACChannel *channel = [[RACChannel alloc] init];
+    [viewModel.phoneTerminal subscribe:channel.leadingTerminal];
+    [channel.leadingTerminal subscribe:viewModel.phoneTerminal];
+
+    [channel.followingTerminal sendNext:@"18612345678"]; // 模拟从文本框输入 18612345678
+
     NSNumber *verifyPhoneResult = [viewModel.verifyPhoneSignal first];
-
     XCTAssertEqualObjects(verifyPhoneResult, @(YES));
-    [viewModel setValue:@"110" forKey:@"phone"];
-    verifyPhoneResult = [viewModel.verifyPhoneSignal first];
 
-    XCTAssertEqualObjects(verifyPhoneResult, @(NO));
+    [viewModel setValue:@"13810001000" forKey:@"phone"]; // 模拟ViewModel更新phone值为13810001000
+
+    XCTAssertEqualObjects([channel.followingTerminal first], @"13810001000"); // 检验文本框内容是否为13810001000
+
+    viewModel.password = @"1234";
+    NSNumber *verifyPasswordResult = [viewModel.verifyPasswordSignal first];
+    XCTAssertEqualObjects(verifyPasswordResult, @(NO)); // 测试密码校验逻辑，少于8位，失败。
 }
 
 - (void)testClearCommand
@@ -53,7 +61,7 @@
 
     [viewModel.clearCommand execute:nil];
 
-    XCTAssertEqualObjects([viewModel valueForKey:@"phone"], @"");
+    XCTAssertEqualObjects([viewModel valueForKey:@"phone"], @"186");
     XCTAssertEqualObjects([viewModel valueForKey:@"password"], @"");
 }
 
