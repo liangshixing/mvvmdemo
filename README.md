@@ -24,7 +24,7 @@
 
 ## 讲师简介
 
-![照片](images/照片.jpeg)
+![照片](images/photo.jpeg)
 
 **梁士兴**
 
@@ -103,7 +103,7 @@ MVVM是一种软件建构模式<sup>1</sup>。最早由微软架构师Ken Cooper
 
 针对代码复用这一诉求，我们给出一种标准实践。原理如下：
 
-> ![MVVM代码复用原理](images/UML原理图.png)
+> ![MVVM代码复用原理](images/UML.png)
 >
 > 图3 MVVM实现代码复用--原理
 
@@ -114,7 +114,7 @@ MVVM是一种软件建构模式<sup>1</sup>。最早由微软架构师Ken Cooper
 
 将其中UI相关的信息放到父类中，而将具体的业务逻辑部分放到子类中实现。通过依赖注入的方式，将具体的ViewModel注入到View中。于是，不同的业务逻辑，都可以通过ViewModel来区别体现，并且可以很好的复用View。举例说明：
 
-> ![MVVM代码复用示例](images/UI绑定示例.png)
+> ![MVVM代码复用示例](images/UI_binding.png)
 >
 > 图 4 MVVM案例
 
