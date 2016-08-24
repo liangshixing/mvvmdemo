@@ -914,7 +914,7 @@ RACChannelTerminal *viewModelPasswordTerminal = RACChannelTo(_viewModel, passwor
 - [https://github.com/Mantle/Mantle](https://github.com/Mantle/Mantle)
 - [https://github.com/ReactiveCocoa/ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)
 
-ReactiveCocoa为Objective-C插上了FRP的翅膀，为在iOS中实现MVVM模式起到了至关重要的作用。因此强烈建议多花些时间和经历去加深对RAC的学习和理解，这里推荐美团技术博客上的几篇文章：
+ReactiveCocoa为Objective-C插上了FRP的翅膀，为在iOS中实现MVVM模式起到了至关重要的作用。因此强烈建议多花些时间和精力去加深对RAC的学习和理解，这里推荐美团技术博客上的几篇文章：
 
 
 - [http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html](http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html)
