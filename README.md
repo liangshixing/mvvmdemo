@@ -723,7 +723,7 @@ RAC提供了`RACChannelTerminal`，可以很好的支持双向绑定的需求。
         @weakify(self);
         _clearCommand = [[RACCommand alloc] initWithEnabled:verifyAllSignal signalBlock:^RACSignal *(id input) {
             @strongify(self);
-            self.phone = @"";
+            self.phone = @"186";
             self.password = @"";
             return [RACSignal empty];
         }];
